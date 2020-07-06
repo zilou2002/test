@@ -1,0 +1,6 @@
+  # lo:<%= @name %>
+  if net ~ [ <%= @ipaddress %>/32{32,32} ] then {
+    # this community should vary based on what service this is running
+    bgp_community.add((65505,<%= @community %>));
+    accept;
+  }

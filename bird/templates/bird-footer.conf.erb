@@ -1,0 +1,18 @@
+  reject;
+}
+
+template bgp da_switch {
+  local as <%= scope.lookupvar('bird::bgp_asn') %>;
+  hold time 180;
+  source address <%= scope.lookupvar('::ipaddress_primary') %>;
+  import none;
+  export filter announce_out;
+}
+
+protocol bgp 'da01' from da_switch {
+	neighbor <%= scope.lookupvar('::twitch_bgp_neighbor_da01') %> as <%= scope.lookupvar('bird::bgp_asn') %>;
+}
+
+protocol bgp 'da02' from da_switch {
+	neighbor <%= scope.lookupvar('::twitch_bgp_neighbor_da02') %> as <%= scope.lookupvar('bird::bgp_asn') %>;
+}
